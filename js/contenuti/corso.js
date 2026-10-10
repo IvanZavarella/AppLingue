@@ -23,7 +23,8 @@ export const UNITA = [
     id: "saluti",
     titolo: { en: "Greetings", it: "Saluti" },
     parole: [
-      F("ciao", "hello", "ciao", "bonjour", "안녕하세요", "annyeonghaseyo"),
+      F("buongiorno", "hello", "buongiorno", "bonjour", "안녕하세요", "annyeonghaseyo"),
+      F("ciao", "hi", "ciao", "salut", "안녕", "annyeong"),
       F("arrivederci", "goodbye", "arrivederci", "au revoir", "안녕히 가세요", "annyeonghi gaseyo"),
       F("grazie", "thank you", "grazie", "merci", "감사합니다", "gamsahamnida"),
       F("si", "yes", "sì", "oui", "네", "ne"),
@@ -35,7 +36,7 @@ export const UNITA = [
       F("nonfaniente", "it's okay", "non fa niente", "ce n'est pas grave", "괜찮아요", "gwaenchanayo"),
     ],
     frasi: [
-      F("comestai", "Hello, how are you?", "Ciao, come stai?", "Bonjour, comment ça va ?", "안녕하세요, 잘 지내요?", "annyeonghaseyo, jal jinaeyo?"),
+      F("comestai", "Hello, how are you?", "Buongiorno, come sta?", "Bonjour, comment allez-vous ?", "안녕하세요, 잘 지내요?", "annyeonghaseyo, jal jinaeyo?"),
       F("stobene", "I am fine, thank you.", "Sto bene, grazie.", "Je vais bien, merci.", "잘 지내요, 감사합니다.", "jal jinaeyo, gamsahamnida."),
       F("piacere", "Nice to meet you.", "Piacere di conoscerti.", "Ravi de te rencontrer.", "만나서 반가워요.", "mannaseo bangawoyo."),
       F("adomani", "See you tomorrow.", "A domani.", "À demain.", "내일 봐요.", "naeil bwayo."),
@@ -44,8 +45,8 @@ export const UNITA = [
     dialogo: {
       titolo: { en: "Meeting someone", it: "Incontrare qualcuno" },
       battute: [
-        LUI(F("d-ciao", "Hello!", "Ciao!", "Bonjour !", "안녕하세요!", "annyeonghaseyo!")),
-        TU(F("d-ciao2", "Hello!", "Ciao!", "Bonjour !", "안녕하세요!", "annyeonghaseyo!"),
+        LUI(F("d-ciao", "Hello!", "Buongiorno!", "Bonjour !", "안녕하세요!", "annyeonghaseyo!")),
+        TU(F("d-ciao2", "Hello!", "Buongiorno!", "Bonjour !", "안녕하세요!", "annyeonghaseyo!"),
           F("d-notte", "Good night!", "Buonanotte!", "Bonne nuit !", "안녕히 주무세요!", "annyeonghi jumuseyo!"),
           F("d-scusa", "Sorry!", "Scusa!", "Désolé !", "미안해요!", "mianhaeyo!")),
         LUI(F("d-comestai", "How are you?", "Come stai?", "Comment ça va ?", "잘 지내요?", "jal jinaeyo?")),
@@ -58,7 +59,7 @@ export const UNITA = [
           F("d-scusi", "Excuse me.", "Scusi.", "Excusez-moi.", "저기요.", "jeogiyo.")),
         LUI(F("d-adomani2", "See you tomorrow!", "A domani!", "À demain !", "내일 봐요!", "naeil bwayo!")),
         TU(F("d-arrivederci", "Goodbye!", "Arrivederci!", "Au revoir !", "안녕히 가세요!", "annyeonghi gaseyo!"),
-          F("d-ciao3", "Hello!", "Ciao!", "Bonjour !", "안녕하세요!", "annyeonghaseyo!"),
+          F("d-ciao3", "Hello!", "Buongiorno!", "Bonjour !", "안녕하세요!", "annyeonghaseyo!"),
           F("d-benvenuto2", "Welcome!", "Benvenuto!", "Bienvenue !", "환영합니다!", "hwanyeonghamnida!")),
       ],
     },
@@ -89,7 +90,7 @@ export const UNITA = [
     dialogo: {
       titolo: { en: "A new friend", it: "Un nuovo amico" },
       battute: [
-        LUI(F("d-nome", "Hello! What is your name?", "Ciao! Come ti chiami?", "Bonjour ! Comment tu t'appelles ?", "안녕하세요! 이름이 뭐예요?", "annyeonghaseyo! ireumi mwoyeyo?")),
+        LUI(F("d-nome", "Hi! What is your name?", "Ciao! Come ti chiami?", "Salut ! Comment tu t'appelles ?", "안녕하세요! 이름이 뭐예요?", "annyeonghaseyo! ireumi mwoyeyo?")),
         TU(F("d-anna", "My name is Anna.", "Mi chiamo Anna.", "Je m'appelle Anna.", "제 이름은 안나예요.", "je ireumeun annayeyo."),
           F("d-roma", "I live in Rome.", "Abito a Roma.", "J'habite à Rome.", "저는 로마에 살아요.", "jeoneun roma-e sarayo."),
           F("d-grazie", "Thank you very much.", "Grazie mille.", "Merci beaucoup.", "정말 감사합니다.", "jeongmal gamsahamnida.")),
@@ -187,7 +188,7 @@ export const UNITA = [
         LUI(F("d-grazie", "Thank you! Goodbye!", "Grazie! Arrivederci!", "Merci ! Au revoir !", "감사합니다! 안녕히 가세요!", "gamsahamnida! annyeonghi gaseyo!")),
         // In coreano chi se ne va dice 안녕히 계세요 ("stai bene", a chi resta)
         TU(F("d-arrivederci", "Goodbye!", "Arrivederci!", "Au revoir !", "안녕히 계세요!", "annyeonghi gyeseyo!"),
-          F("d-ciao", "Hello!", "Ciao!", "Bonjour !", "안녕하세요!", "annyeonghaseyo!"),
+          F("d-ciao", "Hello!", "Buongiorno!", "Bonjour !", "안녕하세요!", "annyeonghaseyo!"),
           F("d-benvenuto", "Welcome!", "Benvenuto!", "Bienvenue !", "환영합니다!", "hwanyeonghamnida!")),
       ],
     },

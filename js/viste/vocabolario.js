@@ -1,24 +1,19 @@
-// vocabolario.js - Il percorso delle lezioni (unità una sotto l'altra, con
-// le lezioni che si sbloccano in ordine) e l'avvio di lezioni e ripasso.
+// vocabolario.js - Il percorso delle lezioni (unità una sotto l'altra, tutte
+// apribili da subito: viene solo suggerita la prossima lezione da fare) e
+// l'avvio di lezioni e ripasso.
 
 import { lezioneFatta, registraLezione } from "../archivio.js";
 import { UNITA } from "../contenuti/corso.js";
 import { avviaSessione } from "../esercizi.js";
 import { t, tr } from "../i18n.js";
 import {
-  LEZIONI_PER_UNITA, eserciziLezione, eserciziRipasso, lezioneSbloccata, lezioniFatte, paroleDifficili,
+  LEZIONI_PER_UNITA, eserciziLezione, eserciziRipasso, lezioniFatte, paroleDifficili, prossimaLezione,
 } from "../lezioni.js";
 import { el, icona, riempi } from "../utili.js";
 
 export function mostra(contenitore, lingua) {
   const difficili = paroleDifficili(lingua);
-  // La prima lezione non ancora fatta tra quelle sbloccate
-  let attuale = null;
-  UNITA.forEach((u, i) => {
-    for (let n = 0; n < LEZIONI_PER_UNITA; n++) {
-      if (!attuale && lezioneSbloccata(lingua, i, n) && !lezioneFatta(lingua, u.id, n)) attuale = `${u.id}-${n}`;
-    }
-  });
+  const attuale = prossimaLezione(lingua);
 
   riempi(contenitore,
     lingua === "ko" && lezioniFatte(lingua) === 0
@@ -32,7 +27,7 @@ export function mostra(contenitore, lingua) {
         el("h2", {}, tr(unita.titolo)),
         lingua === "ko" && unita.nota && el("p.nota", {}, tr(unita.nota))),
       el("ol.lezioni", {}, Array.from({ length: LEZIONI_PER_UNITA }, (_, n) =>
-        el("li", {}, nodoLezione(lingua, unita, i, n, attuale === `${unita.id}-${n}`))))))),
+        el("li", {}, nodoLezione(lingua, unita, n, attuale === `${unita.id}-${n}`))))))),
   );
 }
 
@@ -42,14 +37,9 @@ function statoUnita(lingua, unita) {
   return "nuova";
 }
 
-function nodoLezione(lingua, unita, indiceUnita, n, attuale) {
+function nodoLezione(lingua, unita, n, attuale) {
   const nome = t(`percorso.lezione.${n}`);
   const fatta = lezioneFatta(lingua, unita.id, n);
-  if (!lezioneSbloccata(lingua, indiceUnita, n)) {
-    return el("span.nodo.bloccato", { title: t("percorso.bloccata"), "aria-disabled": "true" },
-      el("span.cerchio", {}, icona("lucchetto")),
-      el("span.nome-nodo", {}, nome));
-  }
   return el(`a.nodo${fatta ? ".fatto" : ""}${attuale ? ".attuale" : ""}`, {
     href: `#${lingua}/lezione/${unita.id}/${n}`,
     "aria-label": `${tr(unita.titolo)}: ${nome}`,
@@ -62,7 +52,7 @@ function nodoLezione(lingua, unita, indiceUnita, n, attuale) {
 export function avviaLezione(radice, lingua, idUnita, n) {
   const indice = UNITA.findIndex((u) => u.id === idUnita);
   const torna = () => { location.hash = `#${lingua}/vocabolario`; };
-  if (indice === -1 || !(n >= 0 && n < LEZIONI_PER_UNITA) || !lezioneSbloccata(lingua, indice, n)) { torna(); return; }
+  if (indice === -1 || !(n >= 0 && n < LEZIONI_PER_UNITA)) { torna(); return; }
   avviaSessione(radice, {
     lingua,
     esercizi: eserciziLezione(UNITA[indice], n),

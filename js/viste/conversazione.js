@@ -6,7 +6,7 @@ import { leggi, parlatoAttivo, progresso, registraPratica, registraXp, scrivi } 
 import { UNITA } from "../contenuti/corso.js";
 import { bottoneAudio, romanizzazione } from "../esercizi.js";
 import { linguaInterfaccia, t, tr } from "../i18n.js";
-import { dialogoSbloccato, unitaPerId } from "../lezioni.js";
+import { unitaPerId } from "../lezioni.js";
 import {
   SOGLIA_PRONUNCIA, el, icona, mescola, pronuncia, puoRiconoscere, riconosci, riempi, somiglianza,
 } from "../utili.js";
@@ -18,11 +18,9 @@ export function mostra(contenitore, lingua) {
     el("header.testata", {}, el("h1", {}, t("conv.titolo")), el("p.sottotitolo", {}, t("conv.sottotitolo"))),
     el("ul.lista-attivita", {}, UNITA.map((unita, i) => el("li", {},
       voceAttivita({
-        sbloccata: dialogoSbloccato(lingua, unita.id),
         href: `#${lingua}/dialogo/${unita.id}`,
         titolo: `${t("percorso.unita", { n: i + 1 })} · ${tr(unita.dialogo.titolo)}`,
         dettaglio: fatte[unita.id] ? t("conv.fatta", { n: fatte[unita.id] }) : tr(unita.titolo),
-        motivoBlocco: t("conv.bloccata"),
         icona: "microfono",
       })))),
   );
@@ -31,7 +29,7 @@ export function mostra(contenitore, lingua) {
 export function avviaDialogo(radice, lingua, idUnita) {
   const unita = unitaPerId(idUnita);
   const torna = () => { location.hash = `#${lingua}/conversazione`; };
-  if (!unita || !dialogoSbloccato(lingua, idUnita)) { torna(); return null; }
+  if (!unita) { torna(); return null; }
 
   const ui = linguaInterfaccia();
   const battute = unita.dialogo.battute;

@@ -24,20 +24,17 @@ export function unitaPerId(id) {
   return UNITA.find((u) => u.id === id);
 }
 
-// --- Sblocco ---------------------------------------------------------------
+// --- Avanzamento -------------------------------------------------------------
+// Tutto è disponibile da subito: il percorso suggerisce solo la prossima
+// lezione non ancora fatta.
 
-export function lezioneSbloccata(lingua, indiceUnita, n) {
-  if (n > 0) return lezioneFatta(lingua, UNITA[indiceUnita].id, n - 1);
-  if (indiceUnita === 0) return true;
-  return lezioneFatta(lingua, UNITA[indiceUnita - 1].id, LEZIONI_PER_UNITA - 1);
-}
-
-export function unitaIniziata(lingua, idUnita) {
-  return lezioneFatta(lingua, idUnita, 0);
-}
-
-export function dialogoSbloccato(lingua, idUnita) {
-  return lezioneFatta(lingua, idUnita, 2);
+export function prossimaLezione(lingua) {
+  for (const unita of UNITA) {
+    for (let n = 0; n < LEZIONI_PER_UNITA; n++) {
+      if (!lezioneFatta(lingua, unita.id, n)) return `${unita.id}-${n}`;
+    }
+  }
+  return null;
 }
 
 export function lezioniFatte(lingua) {
